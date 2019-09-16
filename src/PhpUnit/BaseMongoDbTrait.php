@@ -92,7 +92,7 @@ trait BaseMongoDbTrait
     {
         $container = static::$container ?? static::$kernel->getContainer();
         $manager = $container->get('doctrine_mongodb.odm.document_manager');
-        $loader = $container->get('hautelook_alice.odm_loader');
+        $loader = $container->get('hautelook_alice.loader');
         static::$fixtures = $loader->load(
             new Application(static::$kernel),
             // OK this is ugly... But there is no other way without redesigning LoaderInterface from the ground.
