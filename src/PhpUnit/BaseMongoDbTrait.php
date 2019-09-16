@@ -6,6 +6,7 @@ namespace Hautelook\AliceBundle\PhpUnit;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use LogicException;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Container;
@@ -47,12 +48,6 @@ trait BaseMongoDbTrait
      */
     protected static $fixtures;
 
-    protected static $excludedMongoDBs = [
-        'admin',
-        'config',
-        'local'
-    ];
-
     protected static function ensureKernelTestCase(): void
     {
         if (!is_a(static::class, KernelTestCase::class, true)) {
@@ -72,19 +67,17 @@ trait BaseMongoDbTrait
         $container = static::$container ?? static::$kernel->getContainer();
         /** @var DocumentManager $manager */
         $manager = $container->get('doctrine_mongodb.odm.document_manager');
-        foreach ($manager->getClient()->listDatabases() as $db) {
-            $dbName = $db->getName();
-            if (in_array($dbName, static::$excludedMongoDBs, true)) {
-                continue;
-            }
-            $collectionIterator = $manager->getClient()->selectDatabase(
-                $db->getName()
-            )->listCollections();
-            foreach ($collectionIterator as $collection) {
-                $manager->getClient()->selectDatabase($dbName)->dropCollection(
-                    $collection->getName()
-                );
-            }
+        $db = $manager->getConfiguration()->getDefaultDB();
+        if (!$db) {
+            throw new RuntimeException('Database name couldn\'t be retrieved.');
+        }
+        $collectionIterator = $manager->getClient()
+            ->selectDatabase($db)
+            ->listCollections();
+        foreach ($collectionIterator as $collection) {
+            $manager->getClient()->selectDatabase($db)->dropCollection(
+                $collection->getName()
+            );
         }
     }
 
