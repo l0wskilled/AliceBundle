@@ -91,16 +91,8 @@ trait BaseMongoDbTrait
     protected static function populateDatabase(): void
     {
         $container = static::$container ?? static::$kernel->getContainer();
-        switch ('odm') {
-            case 'odm':
-                $manager = $container->get('doctrine_mongodb.odm.document_manager');
-                $loader = $container->get('hautelook_alice.odm_loader');
-                break;
-            case 'orm':
-            default:
-                $manager = $container->get('doctrine')->getManager(static::$manager);
-                $loader = $container->get('hautelook_alice.loader');
-        }
+        $manager = $container->get('doctrine_mongodb.odm.document_manager');
+        $loader = $container->get('hautelook_alice.odm_loader');
         static::$fixtures = $loader->load(
             new Application(static::$kernel),
             // OK this is ugly... But there is no other way without redesigning LoaderInterface from the ground.
