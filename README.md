@@ -1,5 +1,7 @@
-AliceBundle
+AliceBundle for MongoDB only
 ===========
+
+**Ugly changes to make it compatible with MongoDB.**
 
 A [Symfony](http://symfony.com) bundle to manage fixtures with [nelmio/alice](https://github.com/nelmio/alice) and
 [fzaninotto/Faker](https://github.com/fzaninotto/Faker).
@@ -159,14 +161,14 @@ Next chapter: [Advanced usage](doc/advanced-usage.md)
 ## Database testing
 
 The bundle provides nice helpers, [inspired by Laravel](https://laravel.com/docs/5.6/database-testing#resetting-the-database-after-each-test),
-dedicated for database testing: `RefreshDatabaseTrait`, `ReloadDatabaseTrait` and `RecreateDatabaseTrait`.
+dedicated for database testing: `RefreshMongoDbTrait`, `ReloadMongoDbTrait` and `RecreateMongoDbTrait`.
 These traits allow to easily reset the database in a known state before each PHPUnit test: it purges the database then loads
 the fixtures.
 
 They are particularly helpful when writing [functional tests](https://symfony.com/doc/current/testing.html#functional-tests)
 and when using [Panther](https://github.com/symfony/panther).
 
-To improve performance, `RefreshDatabaseTrait` populates the database only one time, then wraps every tests in a
+To improve performance, `RefreshMongoDbTrait` populates the database only one time, then wraps every tests in a
 transaction that will be rolled back at the end after its execution (regardless of if it's a success or a failure):
 
 ```php
@@ -174,12 +176,12 @@ transaction that will be rolled back at the end after its execution (regardless 
 
 namespace App\Tests;
 
-use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
+use Hautelook\AliceBundle\PhpUnit\RefreshMongoDbTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class NewsTest extends WebTestCase
 {
-    use RefreshDatabaseTrait;
+    use RefreshMongoDbTrait;
 
     public function postCommentTest()
     {
@@ -201,12 +203,12 @@ In such cases, use the `ReloadDatabase` trait. It will purge the DB and load fix
 
 namespace App\Tests;
 
-use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
+use Hautelook\AliceBundle\PhpUnit\ReloadMongoDbTrait;
 use Symfony\Component\Panther\PantherTestCase;
 
 class NewsTest extends PantherTestCase // Be sure to extends KernelTestCase, WebTestCase or PantherTestCase
 {
-    use ReloadDatabaseTrait;
+    use ReloadMongoDbTrait;
 
     public function postCommentTest()
     {
@@ -238,12 +240,12 @@ Use them in the `setUpBeforeClass` method.
 
 namespace App\Tests;
 
-use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
+use Hautelook\AliceBundle\PhpUnit\RefreshMongoDbTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class NewsTest extends WebTestCase
 {
-    use RefreshDatabaseTrait;
+    use RefreshMongoDbTrait;
 
     public static function setUpBeforeClass()
     {
@@ -254,18 +256,18 @@ class NewsTest extends WebTestCase
 }
 ```
 
-Finally, if you're using in memory SQLite for your tests, use `RecreateDatabaseTrait` to create the database schema "on the fly":
+Finally, if you're using in memory SQLite for your tests, use `RecreateMongoDbTrait` to create the database schema "on the fly":
 ```php
 <?php
 
 namespace App\Tests;
 
-use Hautelook\AliceBundle\PhpUnit\RecreateDatabaseTrait;
+use Hautelook\AliceBundle\PhpUnit\RecreateMongoDbTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class NewsTest extends WebTestCase
 {
-    use RecreateDatabaseTrait;
+    use RecreateMongoDbTrait;
 
     // ...
 }

@@ -16,10 +16,10 @@ namespace Hautelook\AliceBundle\PhpUnit;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
- * @author Gary PEGEOT <garypegeot@gmail.com>
+ * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class RecreateDatabaseTraitTest extends KernelTestCase
+class RefreshMongoDbTraitTest extends KernelTestCase
 {
-    use RecreateDatabaseTrait;
+    use RefreshMongoDbTrait;
     use RefreshTestTrait;
 }

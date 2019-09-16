@@ -12,7 +12,7 @@
 namespace Hautelook\AliceBundle\Loader;
 
 use Doctrine\DBAL\Sharding\PoolingShardConnection;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Fidry\AliceDataFixtures\Bridge\Doctrine\Persister\ObjectManagerPersister;
 use Fidry\AliceDataFixtures\LoaderInterface;
 use Fidry\AliceDataFixtures\Persistence\PersisterAwareInterface;
@@ -20,7 +20,6 @@ use Fidry\AliceDataFixtures\Persistence\PersisterInterface;
 use Fidry\AliceDataFixtures\Persistence\PurgeMode;
 use Hautelook\AliceBundle\BundleResolverInterface;
 use Hautelook\AliceBundle\FixtureLocatorInterface;
-use Hautelook\AliceBundle\LoaderInterface as AliceBundleLoaderInterface;
 use Hautelook\AliceBundle\LoggerAwareInterface;
 use InvalidArgumentException;
 use LogicException;
@@ -29,7 +28,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
-final class DoctrineOrmLoader implements AliceBundleLoaderInterface, LoggerAwareInterface
+final class DoctrineOdmLoader implements LoggerAwareInterface
 {
     use IsAServiceTrait;
 
@@ -93,7 +92,7 @@ final class DoctrineOrmLoader implements AliceBundleLoaderInterface, LoggerAware
      */
     public function load(
         Application $application,
-        EntityManagerInterface $manager,
+        DocumentManager $manager,
         array $bundles,
         string $environment,
         bool $append,
@@ -130,7 +129,7 @@ final class DoctrineOrmLoader implements AliceBundleLoaderInterface, LoggerAware
         return $fixtures;
     }
 
-    protected function createPersister(EntityManagerInterface $manager): PersisterInterface
+    protected function createPersister(DocumentManager $manager): PersisterInterface
     {
         return new ObjectManagerPersister($manager);
     }
@@ -143,7 +142,7 @@ final class DoctrineOrmLoader implements AliceBundleLoaderInterface, LoggerAware
      */
     protected function loadFixtures(
         LoaderInterface $loader,
-        EntityManagerInterface $manager,
+        DocumentManager $manager,
         array $files,
         array $parameters,
         ?PurgeMode $purgeMode
@@ -155,7 +154,7 @@ final class DoctrineOrmLoader implements AliceBundleLoaderInterface, LoggerAware
         return $loader->load($files, $parameters, [], $purgeMode);
     }
 
-    private function connectToShardConnection(EntityManagerInterface $manager, string $shard)
+    private function connectToShardConnection(DocumentManager $manager, string $shard)
     {
         $connection = $manager->getConnection();
         if ($connection instanceof PoolingShardConnection) {

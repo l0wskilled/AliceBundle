@@ -38,7 +38,9 @@
         "psr/log": "^1.0",
         "symfony/finder": "^3.4 || ^4.0",
         "symfony/framework-bundle": "^3.4 || ^4.0",
-        "theofidry/alice-data-fixtures": "^1.0"
+        "theofidry/alice-data-fixtures": "^1.0",
+        "doctrine/mongodb-odm": "^2.0.0@beta",
+        "doctrine/mongodb-odm-bundle": "^4.0.0@beta"
     },
     "require-dev": {
         "doctrine/persistence": "^1.0",

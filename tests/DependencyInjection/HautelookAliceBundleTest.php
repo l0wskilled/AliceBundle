@@ -117,8 +117,8 @@ class HautelookAliceBundleTest extends TestCase
         );
 
         $this->assertInstanceOf(
-            \Hautelook\AliceBundle\Loader\DoctrineOrmLoader::class,
-            $this->kernel->getContainer()->get('hautelook_alice.loader.doctrine_orm_loader')
+            \Hautelook\AliceBundle\Loader\DoctrineOdmLoader::class,
+            $this->kernel->getContainer()->get('hautelook_alice.loader.doctrine_odm_loader')
         );
 
         $this->assertInstanceOf(

@@ -7,27 +7,26 @@
         <!-- Resources -->
         <service id="hautelook_alice.data_fixtures.loader.file_resolver_loader"
                  class="Fidry\AliceDataFixtures\Loader\FileResolverLoader">
-            <argument type="service" id="fidry_alice_data_fixtures.doctrine.purger_loader" />
+            <argument type="service" id="fidry_alice_data_fixtures.doctrine_mongodb.purger_loader" />
             <argument type="service" id="hautelook_alice.resolver.file" />
         </service>
 
         <service id="hautelook_alice.data_fixtures.purge_loader"
                  class="Fidry\AliceDataFixtures\Loader\FileResolverLoader"
                  public="true">
-            <argument type="service" id="fidry_alice_data_fixtures.loader.doctrine"/>
+            <argument type="service" id="fidry_alice_data_fixtures.loader.doctrine_mongodb"/>
             <argument type="service" id="hautelook_alice.resolver.file"/>
         </service>
 
         <service id="hautelook_alice.data_fixtures.append_loader"
                  class="Fidry\AliceDataFixtures\Loader\FileResolverLoader"
                  public="true">
-            <argument type="service" id="fidry_alice_data_fixtures.doctrine.persister_loader"/>
+            <argument type="service" id="fidry_alice_data_fixtures.doctrine_mongodb.persister_loader"/>
             <argument type="service" id="hautelook_alice.resolver.file"/>
         </service>
 
-        <!-- HautelookAliceBundle -->
-        <service id="hautelook_alice.loader.doctrine_orm_loader"
-                 class="Hautelook\AliceBundle\Loader\DoctrineOrmLoader">
+        <service id="hautelook_alice.loader.doctrine_odm_loader"
+                 class="Hautelook\AliceBundle\Loader\DoctrineOdmLoader">
             <argument type="service" id="hautelook_alice.resolver.bundle" />
             <argument type="service" id="hautelook_alice.locator" />
             <argument type="service" id="hautelook_alice.data_fixtures.purge_loader" />
@@ -37,6 +36,10 @@
 
         <service id="hautelook_alice.loader"
                  alias="hautelook_alice.loader.doctrine_orm_loader"
+                 public="true" />
+
+        <service id="hautelook_alice.odm_loader"
+                 alias="hautelook_alice.loader.doctrine_odm_loader"
                  public="true" />
     </services>
 
