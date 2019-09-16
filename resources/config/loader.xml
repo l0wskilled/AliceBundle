@@ -34,10 +34,6 @@
             <argument type="service" id="logger" on-invalid="null" />
         </service>
 
-        <service id="hautelook_alice.loader"
-                 alias="hautelook_alice.loader.doctrine_orm_loader"
-                 public="true" />
-
         <service id="hautelook_alice.odm_loader"
                  alias="hautelook_alice.loader.doctrine_odm_loader"
                  public="true" />
