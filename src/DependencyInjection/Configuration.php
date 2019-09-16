@@ -29,7 +29,7 @@ final class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('hautelook_alice');
 
-        if (method_exists($treeBuilder, 'getRootNode')) {
+        if (method_exists(TreeBuilder::class, 'getRootNode')) {
             $rootNode = $treeBuilder->getRootNode();
         } else {
             // BC for symfony/config < 4.2
