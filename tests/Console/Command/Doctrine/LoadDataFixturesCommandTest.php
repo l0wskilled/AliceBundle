@@ -27,20 +27,20 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
 
 /**
- * @covers \Hautelook\AliceBundle\Console\Command\Doctrine\DoctrineOrmLoadDataFixturesCommand
+ * @covers \Hautelook\AliceBundle\Console\Command\Doctrine\DoctrineOdmLoadDataFixturesCommand
  */
 class LoadDataFixturesCommandTest extends TestCase
 {
     public function testIsACommand()
     {
-        $this->assertTrue(is_a(DoctrineOrmLoadDataFixturesCommand::class, Command::class, true));
+        $this->assertTrue(is_a(DoctrineOdmLoadDataFixturesCommand::class, Command::class, true));
     }
 
     public function testCanSetTheCommandApplication()
     {
         $application = new FrameworkBundleConsoleApplication(new DummyKernel());
 
-        $command = new DoctrineOrmLoadDataFixturesCommand('dummy', new FakeDoctrineManagerRegistry(), new FakeLoader());
+        $command = new DoctrineOdmLoadDataFixturesCommand('dummy', new FakeDoctrineManagerRegistry(), new FakeLoader());
         $command->setApplication($application);
 
         $this->assertSame($application, $command->getApplication());
@@ -48,7 +48,7 @@ class LoadDataFixturesCommandTest extends TestCase
 
     public function testCanResetTheCommandApplication()
     {
-        $command = new DoctrineOrmLoadDataFixturesCommand('dummy', new FakeDoctrineManagerRegistry(), new FakeLoader());
+        $command = new DoctrineOdmLoadDataFixturesCommand('dummy', new FakeDoctrineManagerRegistry(), new FakeLoader());
         $command->setApplication(null);
 
         $this->assertTrue(true);
@@ -60,7 +60,7 @@ class LoadDataFixturesCommandTest extends TestCase
      */
     public function testThrowsAnExceptionIfInvalidApplicationIsGiven()
     {
-        $command = new DoctrineOrmLoadDataFixturesCommand('dummy', new FakeDoctrineManagerRegistry(), new FakeLoader());
+        $command = new DoctrineOdmLoadDataFixturesCommand('dummy', new FakeDoctrineManagerRegistry(), new FakeLoader());
         $command->setApplication(new ConsoleApplication());
     }
 
@@ -89,7 +89,7 @@ class LoadDataFixturesCommandTest extends TestCase
         /** @var LoaderInterface $loader */
         $loader = $loaderProphecy->reveal();
 
-        $command = new DoctrineOrmLoadDataFixturesCommand('dummy', $managerRegistry, $loader);
+        $command = new DoctrineOdmLoadDataFixturesCommand('dummy', $managerRegistry, $loader);
         $command->setApplication($application);
         $exit = $command->run($input, new NullOutput());
 
@@ -132,7 +132,7 @@ class LoadDataFixturesCommandTest extends TestCase
         /** @var LoaderInterface $loader */
         $loader = $loaderProphecy->reveal();
 
-        $command = new DoctrineOrmLoadDataFixturesCommand('dummy', $managerRegistry, $loader);
+        $command = new DoctrineOdmLoadDataFixturesCommand('dummy', $managerRegistry, $loader);
         $command->setApplication($application);
         $exit = $command->run($input, new NullOutput());
 

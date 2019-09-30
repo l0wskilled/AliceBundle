@@ -39,7 +39,7 @@ class LoadDataFixturesCommandIntegrationTest extends TestCase
     private $kernel;
 
     /**
-     * @var DoctrineOrmLoadDataFixturesCommand
+     * @var DoctrineOdmLoadDataFixturesCommand
      */
     private $command;
 

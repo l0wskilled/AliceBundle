@@ -128,7 +128,7 @@ class HautelookAliceBundleTest extends TestCase
 
         // Commands
         $this->assertInstanceOf(
-            \Hautelook\AliceBundle\Console\Command\Doctrine\DoctrineOrmLoadDataFixturesCommand::class,
+            \Hautelook\AliceBundle\Console\Command\Doctrine\DoctrineOdmLoadDataFixturesCommand::class,
             $this->kernel->getContainer()->get('hautelook_alice.console.command.doctrine.doctrine_orm_load_data_fixtures_command')
         );
     }

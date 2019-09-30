@@ -12,7 +12,7 @@
 namespace Hautelook\AliceBundle\Console\Command\Doctrine;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Hautelook\AliceBundle\LoaderInterface as AliceBundleLoaderInterface;
+use Hautelook\AliceBundle\Loader\DoctrineOdmLoader as AliceBundleLoaderInterface;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Console\Application as FrameworkBundleConsoleApplication;
 use Symfony\Component\Console\Application as ConsoleApplication;
@@ -26,7 +26,7 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 /**
  * Command used to load the fixtures.
  */
-class DoctrineOrmLoadDataFixturesCommand extends Command
+class DoctrineOdmLoadDataFixturesCommand extends Command
 {
     /**
      * @var ManagerRegistry

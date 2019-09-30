@@ -5,7 +5,7 @@
 
     <services>
         <service id="hautelook_alice.console.command.doctrine.doctrine_orm_load_data_fixtures_command"
-                 class="Hautelook\AliceBundle\Console\Command\Doctrine\DoctrineOrmLoadDataFixturesCommand"
+                 class="Hautelook\AliceBundle\Console\Command\Doctrine\DoctrineOdmLoadDataFixturesCommand"
                  public="true">
             <argument type="string">hautelook:fixtures:load</argument>
             <argument type="service" id="doctrine" />
