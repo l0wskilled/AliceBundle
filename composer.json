@@ -1,5 +1,5 @@
 {
-    "name": "hautelook/alice-bundle",
+    "name": "l0wskilled/alice-bundle-odm",
     "description": "Symfony bundle to manage fixtures with Alice and Faker.",
     "keywords": ["Symfony", "Fixture", "ORM", "Alice", "Faker"],
     "type": "symfony-bundle",
